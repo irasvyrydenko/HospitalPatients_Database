@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html th:replace="~{common/layout :: layout(~{::title}, ~{::header}, ~{::section})}" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patients</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>Patient Registry</header>
+
+<section class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-secondary">Registered Patients</h2>
+        <a th:href="@{/patient/create}" class="btn btn-primary shadow-sm">
+            <i class="fas fa-user-plus"></i> Add New Patient
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Patient Name</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Blood Type</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(patients)}">
+                    <td colspan="6" class="text-center py-5 text-muted">
+                        No patients found. Start by adding one!
+                    </td>
+                </tr>
+
+                <tr th:each="patient : ${patients}">
+                    <td class="ps-4 fw-bold text-muted" th:text="${patient.patientId}"></td>
+                    <td>
+                        <span class="fw-semibold" th:text="${patient.firstName} + ' ' + ${patient.lastName}"></span>
+                    </td>
+                    <td th:text="${#temporals.format(patient.dateOfBirth, 'dd MMM yyyy')}"></td>
+                    <td>
+                        <span th:text="${patient.gender}"
+                              th:classappend="${patient.gender == 'Male' ? 'badge bg-blue-subtle text-primary' : 'badge bg-pink-subtle text-danger'}">
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge rounded-pill bg-light text-dark border" th:text="${patient.bloodType}"></span>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm">
+                            <a th:href="@{/patient/{id}/edit(id=${patient.patientId})}"
+                               class="btn btn-outline-warning" title="Edit Patient Details">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a th:href="@{/patient/{id}/surgery(id=${patient.patientId})}" class="btn btn-outline-primary">
+                                Surgeries
+                            </a>
+                            <a th:href="@{/patient/{id}/hospitalStay(id=${patient.patientId})}"
+                               class="btn btn-outline-info" title="Hospital Stay Record">
+                                Hospital stay
+                            </a>
+                            <form th:action="@{/patient/{id}/delete(id=${patient.patientId})}" method="post"
+                                  style="display:inline;" onsubmit="return confirm('Archive this patient record?')">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html th:replace="~{common/layout :: layout(~{::title}, ~{::header}, ~{::section})}" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><title>Schedule Surgery</title></head>
+<body>
+<header th:text="'New Surgery: ' + ${patient.firstName}"></header>
+<section class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <form th:action="@{/patient/{id}/surgery/create(id=${patient.patientId})}" th:object="${surgeryForm}" method="post">
+            <div class="mb-3">
+                <label class="form-label">Procedure Type</label>
+                <input type="text" th:field="*{procedureType}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Operation Room</label>
+                <input type="text" th:field="*{operationRoom}" class="form-control" required>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="form-label">Start Time</label>
+                    <input type="datetime-local" th:field="*{startTime}" class="form-control" required>
+                </div>
+                <div class="col mb-3">
+                    <label class="form-label">End Time</label>
+                    <input type="datetime-local" th:field="*{endTime}" class="form-control" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Schedule Surgery</button>
+        </form>
+    </div>
+</section>
+</body>
+</html>
