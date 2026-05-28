@@ -1,4 +1,4 @@
-# Spring MVC Database Template
+# Template App - Surgery Patients
 
 Use this repository as a starting point for a database homework. It contains one generic entity, `Item`, and a simple server-rendered CRUD flow.
 
@@ -33,14 +33,7 @@ Use it to:
 
 ## Local Setup
 
-Update `docker-compose.yml` with the database name you want to use:
-
-```yaml
-services:
-  database:
-    environment:
-      MYSQL_DATABASE: your_database_name
-```
+The `docker-compose.yml` is already configured for the `surgery-patients-hw3` database. 
 
 Start the database:
 
@@ -48,10 +41,10 @@ Start the database:
 docker compose up -d
 ```
 
-Update `src/main/resources/application.properties` with matching values:
+Verify your src/main/resources/application.properties has the matching values:
 
 ```properties
-spring.datasource.url=${DB_URL:jdbc:mysql://localhost:3307/your_database_name}
+spring.datasource.url=${DB_URL:jdbc:mysql://localhost:3307/surgery-patients-hw3}
 spring.datasource.username=${DB_USERNAME:root}
 spring.datasource.password=${DB_PASSWORD:secret}
 ```
@@ -59,7 +52,7 @@ spring.datasource.password=${DB_PASSWORD:secret}
 Or set environment variables:
 
 ```bash
-export DB_URL=jdbc:mysql://localhost:3307/your_database_name
+export DB_URL=jdbc:mysql://localhost:3307/surgery-patients-hw3
 export DB_USERNAME=root
 export DB_PASSWORD=secret
 ```
@@ -76,9 +69,8 @@ Open:
 http://localhost:8080
 ```
 
-## How To Use It
-
-1. Rename `Item` to the first real entity in the homework domain.
-2. Replace the `item` table in Liquibase with the real schema.
-3. Expand from the existing controller, repository, and templates.
-4. Remove or adapt the sample records in `1_data.sql`.
+The screens of working web application:
+!(Picture1.png)
+!(Picture2.png)
+!(Picture3.png)
+!(Picture4.png)
